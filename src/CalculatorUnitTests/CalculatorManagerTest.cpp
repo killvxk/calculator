@@ -1,12 +1,12 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
 #include "pch.h"
 
 #include <CppUnitTest.h>
 
-#include "CalcManager\CalculatorHistory.h"
-#include "CalcViewModel\Common\EngineResourceProvider.h"
+#include "CalcManager/CalculatorHistory.h"
+#include "CalcViewModel/Common/EngineResourceProvider.h"
 
 using namespace CalculatorApp;
 using namespace CalculationManager;
@@ -40,7 +40,7 @@ namespace CalculatorManagerTest
         {
             m_isError = isError;
         }
-        void SetExpressionDisplay(_Inout_ std::shared_ptr<CalculatorVector<std::pair<std::wstring, int>>> const &tokens, _Inout_ std::shared_ptr<CalculatorVector<std::shared_ptr<IExpressionCommand>>> const &commands)
+        void SetExpressionDisplay(_Inout_ std::shared_ptr<CalculatorVector<std::pair<std::wstring, int>>> const &tokens, _Inout_ std::shared_ptr<CalculatorVector<std::shared_ptr<IExpressionCommand>>> const & /*commands*/)
         {
             m_expression.clear();
             unsigned int nTokens = 0;
@@ -79,7 +79,7 @@ namespace CalculatorManagerTest
             return m_isError;
         }
 
-        void OnHistoryItemAdded(_In_ unsigned int addedItemIndex)
+        void OnHistoryItemAdded(_In_ unsigned int /*addedItemIndex */)
         {
         }
 
@@ -98,7 +98,7 @@ namespace CalculatorManagerTest
             m_binaryOperatorReceivedCallCount++;
         }
 
-        void MemoryItemChanged(unsigned int indexOfMemory)
+        void MemoryItemChanged(unsigned int /*indexOfMemory*/)
         {
         }
 
@@ -260,7 +260,7 @@ namespace CalculatorManagerTest
             VERIFY_IS_LESS_THAN(0, pCalculatorDisplay->GetMaxDigitsCalledCount());
         }
 
-        void SerialzieAndDeSerialize()
+        void SerializeAndDeSerialize()
         {
             auto serializedCommands = m_calculatorManager->SerializeCommands();
             auto serializedMemory = m_calculatorManager->GetSerializedMemory();
@@ -278,7 +278,7 @@ namespace CalculatorManagerTest
             auto savedPrimary = m_calculatorDisplayTester->GetPrimaryDisplay();
             auto savedExpression = m_calculatorDisplayTester->GetExpression();
             auto savedMemory = m_calculatorDisplayTester->GetMemorizedNumbers();
-            SerialzieAndDeSerialize();
+            SerializeAndDeSerialize();
             VERIFY_ARE_EQUAL(savedPrimary, m_calculatorDisplayTester->GetPrimaryDisplay());
             VERIFY_ARE_EQUAL(savedExpression, m_calculatorDisplayTester->GetExpression());
             auto loadedMemory = m_calculatorDisplayTester->GetMemorizedNumbers();
@@ -889,7 +889,7 @@ namespace CalculatorManagerTest
         VerifyPersistence();
     }
 
-    // 1 + 2 then serialize and deserialze 3 times
+    // 1 + 2 then serialize and deserialize 3 times
     // Check if the values are persisted correctly
     void CalculatorManagerTest::CalculatorManagerTestSerializeMultiple()
     {
@@ -915,7 +915,7 @@ namespace CalculatorManagerTest
         Command commands[] = { Command::Command1, Command::CommandDIV, Command::Command3, Command::CommandEQU, Command::CommandNULL };
         ExecuteCommands(commands);
 
-        SerialzieAndDeSerialize();
+        SerializeAndDeSerialize();
 
         Command commands2[] = { Command::CommandMUL, Command::Command3, Command::CommandEQU, Command::CommandNULL };
         ExecuteCommands(commands2);
@@ -944,7 +944,7 @@ namespace CalculatorManagerTest
         wstring primaryDisplay = pCalculatorDisplay->GetPrimaryDisplay();
         wstring expressionDisplay = pCalculatorDisplay->GetExpression();
 
-        SerialzieAndDeSerialize();
+        SerializeAndDeSerialize();
 
         vector<wstring> memorizedNumbersAfterDeSerialize = pCalculatorDisplay->GetMemorizedNumbers();
         wstring primaryDisplayAfterDeSerialize = pCalculatorDisplay->GetPrimaryDisplay();
@@ -975,7 +975,7 @@ namespace CalculatorManagerTest
         primaryDisplay = pCalculatorDisplay->GetPrimaryDisplay();
         expressionDisplay = pCalculatorDisplay->GetExpression();
 
-        SerialzieAndDeSerialize();
+        SerializeAndDeSerialize();
 
         memorizedNumbersAfterDeSerialize = pCalculatorDisplay->GetMemorizedNumbers();
         primaryDisplayAfterDeSerialize = pCalculatorDisplay->GetPrimaryDisplay();
@@ -1016,7 +1016,7 @@ namespace CalculatorManagerTest
         primaryDisplay = pCalculatorDisplay->GetPrimaryDisplay();
         expressionDisplay = pCalculatorDisplay->GetExpression();
 
-        SerialzieAndDeSerialize();
+        SerializeAndDeSerialize();
 
         memorizedNumbersAfterDeSerialize = pCalculatorDisplay->GetMemorizedNumbers();
         primaryDisplayAfterDeSerialize = pCalculatorDisplay->GetPrimaryDisplay();

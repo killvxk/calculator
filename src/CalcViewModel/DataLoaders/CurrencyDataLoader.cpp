@@ -3,11 +3,11 @@
 
 #include "pch.h"
 #include "CurrencyDataLoader.h"
-#include "Common\AppResourceProvider.h"
-#include "Common\LocalizationStringUtil.h"
-#include "Common\LocalizationService.h"
-#include "Common\LocalizationSettings.h"
-#include "Common\TraceLogger.h"
+#include "Common/AppResourceProvider.h"
+#include "Common/LocalizationStringUtil.h"
+#include "Common/LocalizationService.h"
+#include "Common/LocalizationSettings.h"
+#include "Common/TraceLogger.h"
 #include "UnitConverterDataConstants.h"
 
 using namespace CalculatorApp;
@@ -275,7 +275,7 @@ pair<wstring, wstring> CurrencyDataLoader::GetCurrencyRatioEquality(_In_ const U
             {
                 double ratio = (iter2->second).ratio;
 
-                // Round the raio to FORMATTER_DIGIT_COUNT digits using int math.
+                // Round the ratio to FORMATTER_DIGIT_COUNT digits using int math.
                 // Ex: to round 1.23456 to three digits, use
                 //     ((int) 1.23456 * (10^3)) / (10^3)
                 double scale = pow(10, FORMATTER_DIGIT_COUNT);
@@ -588,7 +588,7 @@ bool CurrencyDataLoader::TryParseAllRatiosData(_In_ String^ rawJson, _Inout_ Cur
 //
 // There are a few ways we can get the data needed for Currency Converter, including from cache or from web.
 // This function accepts the data from any source, and acts as a 'last-steps' for the converter to be ready.
-// This includes identifying which units will be selected and building the map of curreny ratios.
+// This includes identifying which units will be selected and building the map of currency ratios.
 #pragma optimize("", off) // Turn off optimizations to work around DevDiv 393321
 task<void> CurrencyDataLoader::FinalizeUnits(_In_ const vector<UCM::CurrencyStaticData>& staticData, _In_ const CurrencyRatioMap& ratioMap)
 {

@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "CalculationResult.h"
 #include "CalculationResultAutomationPeer.h"
-#include "CalcViewModel\Common\LocalizationSettings.h"
+#include "CalcViewModel/Common/LocalizationSettings.h"
 
 using namespace CalculatorApp;
 using namespace CalculatorApp::Controls;
@@ -118,17 +118,17 @@ void CalculationResult::OnTextContainerLayoutUpdated(Object^ /*sender*/, Object^
     }
 }
 
-void CalculationResult::TextContainerSizeChanged(Object^ sender, SizeChangedEventArgs^ /*e*/)
+void CalculationResult::TextContainerSizeChanged(Object^ /*sender*/, SizeChangedEventArgs^ /*e*/)
 {
     UpdateTextState();
 }
 
-void CalculationResult::OnIsActivePropertyChanged(bool /*oldValue*/, bool newValue)
+void CalculationResult::OnIsActivePropertyChanged(bool /*oldValue*/, bool /*newValue */)
 {
     UpdateVisualState();
 }
 
-void CalculationResult::OnAccentColorPropertyChanged(Brush^ oldValue, Brush^ newValue)
+void CalculationResult::OnAccentColorPropertyChanged(Brush^ /*oldValue*/, Brush^ /*newValue*/)
 {
     // Force the "Active" transition to happen again
     if (IsActive)
